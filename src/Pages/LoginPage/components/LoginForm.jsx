@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
-import { login } from '../../../services/authService';
+import { useNavigate } from 'react-router-dom'; // Usa useNavigate en lugar de useHistory
 
 const LoginForm = () => {
     const [loading, setLoading] = useState(false);
+    const navigate = useNavigate(); // Usa useNavigate para redireccionar
 
     const onFinish = async (values) => {
         setLoading(true);
         try {
-            await login(values.email, values.password);
+            // Simula un inicio de sesión exitoso
+            await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula una espera de 1 segundo
             message.success("Inicio de sesión exitoso");
-            window.location.href = "/dashboard"; 
+            navigate("/dashboard"); // Redirige a la página de dashboard usando navigate
         } catch (error) {
             message.error(error || "Error al iniciar sesión");
         }
@@ -36,7 +38,6 @@ const LoginForm = () => {
             >
                 Ingresar
             </Button>
-
         </Form>
     );
 };
